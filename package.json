@@ -26,13 +26,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VishnuReddy505/nodejs-app.git"
+    "url": "https://github.com/MithunTechnologies/node-js-application"
   },
   "keywords": [
     "node",
-    "Vishnu",
+    "Mithun Technologies",
     "express"
   ],
-  "author": "Vishnu",
-  "license": "Vishnu"
+  "author": "Mithun Reddy Lacchannagari",
+  "license": "MIT"
 }
