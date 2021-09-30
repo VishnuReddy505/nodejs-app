@@ -1,0 +1,41 @@
+node
+{
+ 
+  stage("CheckOutCodeGit")
+  {
+   git branch: 'master',  credentialsId: 'GIT_CREDENTIALS', url: 'https://github.com/VishnuReddy505/nodejs-app.git'
+ }
+ 
+ stage("Build")
+ {
+ nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+        sh 'npm install'
+    }
+ }  
+
+ stage('RunNodeJsApp')
+ {
+ //sh "./scripts/run.sh"
+ nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+        sh 'npm start &'
+    }
+}
+ stage("Build Dokcer Image") {
+         sh "docker build -t dockerlegendroy/nodejs:1 ."
+    }
+    
+      stage('Push Docker Image'){
+          withCredentials([string(credentialsId: 'DOKCER_HUB_PASSWORD', variable: 'DOKCER_HUB_PASSWORD')]) {
+      sh "docker login -u dockerlegendroy -p ${DOKCER_HUB_PASSWORD}"
+        }
+        sh 'docker push dockerlegendroy/nodejs:1'
+     }
+    stage("Deploy Application") {
+     sshagent(['32a79ca1-c18e-4df3-b748-bfae3f9ca62b']) {
+    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.32.123"
+     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.32.123 docker run -d -p 8088:9986 --name nodejsappproject dockerlegendroy/nodejs:1"
+     
+     }
+ }
+    
+}
