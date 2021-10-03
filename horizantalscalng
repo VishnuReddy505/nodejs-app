@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hpacontainer
-          image: k8s.gcr.io/hpa-example
+          image: dockerlegendroy/spring-boot-mongo
           ports:
           - name: http
             containerPort: 80
