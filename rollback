@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: mavenwebappcontainer
-        image: dockerlegend/java-web-application:1
+        image: dockerlegend/maven-web-application:1
         ports:
         - containerPort: 8080
